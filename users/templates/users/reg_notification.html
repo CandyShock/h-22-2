@@ -1,0 +1,9 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+    <div class="jumbotron p-3 pb-md-4 mx-auto text-center">
+        <h1> Вы зарегистрированы !!!</h1>
+        <h1> откройте свою почту </h1>
+        <h1> для подтверждения регистрации </h1>
+        <a class="btn btn-danger btn-lg mt-2 mb-2" href="{% url 'catalog:home' %}" role="button">На главную</a>
+    </div>
+{% endblock %}

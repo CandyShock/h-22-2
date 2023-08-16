@@ -1,0 +1,32 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+{% for object in object_list %}
+{% load tags %}
+<div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Product</h4>
+            <h4 class="my-0 fw-normal">{{ object.creator|default:'Admin' }}</h4>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title pricing-card-title">{{ object.price }}$</small></h1>
+            <h1 class="text-body-secondary fw-light ">{{ object.nomination }}</small></h1>
+            <h1 class="text-body-secondary fw-light mt-3 mb-4">
+                {{ object.description }}</h1>
+            <div class="text-center mt-3 mb-4">
+                <img src="/media/{{ object.image }}" class="text-center" width="200" height="200" alt="Card image cap">
+                <div class="card-body">
+                </div>
+            </div>
+            {% if user.is_authenticated %}
+            <button type="button" class="w-100 btn btn-lg btn-outline-primary">BUY</button>
+            <a type="button" class="w-100 btn btn-lg btn-outline-primary mt-2 mb-2"
+               href="{% url 'catalog:update_product' object.pk %}">Update</a>
+            {% else %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

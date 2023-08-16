@@ -1,0 +1,19 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="col-12">
+    <div class="row">
+        <div class="col-12">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <p>Вы действительно хотите удалить материл "{{ object|title }}"?</p>
+                        <button type="submit" class="btn btn-success">Delete</button>
+                        <a href="{% url 'materials:list' %}" class="btn btn-warning">No</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

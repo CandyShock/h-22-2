@@ -1,0 +1,31 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+{% for object in object_list %}
+<div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Material</h4>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title pricing-card-title">{{ object|title }}<small
+                    class="text-body-secondary mt-3 mb-4"></small></h1>
+            <h1 class="list-unstyled mt-3 mb-4">{{ object.content }}
+            </h1>
+            <div class="text-center mt-3 mb-4">
+                <img src="/media/{{ object.preview }}" class="text-center" width="200" height="200" alt="Card image cap">
+                <div class="card-body">
+                </div>
+            </div>
+            <div class="btn-group">
+                <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'materials:view' object.pk %}">View</a>
+                    <a href="{% url 'materials:edit' object.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                        <a href="{% url 'materials:create' %}" class="btn btn-sm btn-outline-secondary">Create Material</a>
+                <a href="{% url 'materials:delete' object.pk %}" class="btn btn-sm btn-outline-secondary">Delete</a>
+            </div>
+            <small class="text-body-secondary">Views {{ object.views_count }}</small>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

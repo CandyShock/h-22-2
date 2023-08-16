@@ -1,0 +1,54 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="col-12 offset-md-4">
+    <form class="row" method="post" enctype="multipart/form-data">
+        <div class="col-12">
+            <div class="container-fluid">
+                <div class="col-12">
+                    <div class="card">
+                        {% csrf_token %}
+                        <div class="card-header">
+                            <h3 class="card-title">Create</h3>
+                        </div>
+                        <div class="card-body">
+                            {{ form.as_p }}
+                        </div>
+                        <div class="card-footer">
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-success mt-2 mb-2 w-100 btn btn-lg">
+                                {% if object %}
+                                Save
+                                {% else %}
+                                Create
+                                {% endif %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+{% if object %}
+<div class="col-6">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">VersionInfo</h3>
+        </div>
+        <div class="card-body">
+            {{ formset.management_form }}
+            {% for form in formset.forms %}
+            {{ form.as_p }}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card-footer">
+    </div>
+</div>
+</div>
+{% endif %}
+</div>
+</form>
+</div>
+{% endblock %}

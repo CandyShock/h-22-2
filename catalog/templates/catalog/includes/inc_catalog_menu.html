@@ -1,0 +1,16 @@
+<div class="col-sm-3 offset-md-8 py-4">
+    <ul class="list-unstyled">
+        {% if user.is_authenticated %}
+        <a href="{% url 'users:logout' %}" class="btn btn-primary mb-2">Logout</a>
+        <a href="{% url 'users:profile' %}" class="btn btn-primary mb-2">Profile</a>
+        <a href="{% url 'catalog:create_product' %}" class="btn btn-secondary mb-2">Add product</a>
+        <a href="{% url 'materials:create' %}" class="btn btn-secondary mb-2">Create Material</a>
+        <a href="{% url 'materials:list' %}" class="btn btn-primary mb-2">Materials</a>
+        <a href="{% url 'catalog:home' %}" class="btn btn-primary mb-2">Pricing</a>
+        {% else %}
+        <a href="{% url 'users:login' %}" class="btn btn-primary mb-2">Log-in</a>
+        <a href="{% url 'users:register' %}" class="btn btn-primary mb-2">Registration</a>
+        <a href="{% url 'catalog:sing_in' %}" class="btn btn-primary mb-2">Sign-in</a>
+        {% endif %}
+    </ul>
+</div>

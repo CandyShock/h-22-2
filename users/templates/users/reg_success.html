@@ -1,0 +1,8 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+    <div class="jumbotron p-3 pb-md-4 mx-auto text-center">
+        <h1> You success you mail </h1>
+
+        <a class="btn btn-danger btn-lg mt-2 mb-2" href="{% url 'users:login' %}" role="button">Login</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="col-12">
+    <div class="container-fluid">
+        <div class="col-12">
+            <div class="card">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h4 class="col-12"></h4>
+                    <form class="mb-3" novalidate>
+                        <div class="col-12">
+                            <label for="id_date_of_create" class="form-label">Post title</label>
+                            {{ form.title }}
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label for="id_date_of_create" class="form-label">Date create</label>
+                            {{ form.date_of_create }}
+                        </div>
+            <div class="col-12 mt-2 mb-2">
+                <label for="id_content" class="form-label">Content</label>
+                {{ form.content }}
+            </div>
+            </div>
+    </div>
+    <div class="col-12">
+        <label for="id_preview" class="form-label">Preview</label>
+        {{ form.preview }}
+        <div class="invalid-feedback">
+            Please enter a valid email address for shipping updates.
+        </div>
+    </div>
+    <div class="col-12">
+        <label for="id_publication_type" class="form-label mt-2">Publication</label>
+        <div class="form-check form-check-inline">
+            {{ form.publication_type }}
+        </div>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-success mt-2 mb-2">
+            {% if object %}
+            Save
+            {% else %}
+            Create
+            {% endif %}
+        </button>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
