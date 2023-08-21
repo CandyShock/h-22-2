@@ -9,6 +9,7 @@ from django.conf import settings
 
 from users.forms import UserRegisterForm, UserProfileForm
 from users.models import User
+from users.services import send_new_pass
 
 
 class RegisterView(CreateView):
@@ -56,12 +57,7 @@ class ProfileView(UpdateView):
 
 def generate_password(request):
     new_password = ''.join([str(random.randint(0, 9)) for _ in range(12)])
-    send_mail(
-        subject='Password change',
-        message=f'You password:{new_password}',
-        from_email=settings.EMAIL_HOST_USER,
-        recipient_list=[request.user.email]
-    )
+    send_new_pass(request.user.email, new_password)
     request.user.set_password(new_password)
     request.user.save()
 
