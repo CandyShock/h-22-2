@@ -39,7 +39,7 @@ class Version(models.Model):
     product_name = models.CharField(max_length=50, verbose_name='название продукта')
     version_number = models.IntegerField(verbose_name='номер версии')
     name_version = models.CharField(max_length=50, verbose_name='название версии')
-    version_control = models.BooleanField(verbose_name='признак версии')
+    version_control = models.BooleanField(verbose_name='признак версии', default=True)
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='продукт')
 
@@ -49,3 +49,4 @@ class Version(models.Model):
     class Meta:
         verbose_name = 'Версия'
         verbose_name_plural = 'Версии'
+

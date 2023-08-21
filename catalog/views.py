@@ -1,7 +1,10 @@
+from django.conf import settings
+from django.core.cache import cache
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from catalog.forms import ProductForm, VersionForm
 from catalog.models import Product, Version
@@ -19,6 +22,25 @@ def sing_in(request):
     return render(request, 'catalog/sing_in.html', context)
 
 
+class ProductDetailView(DetailView, PermissionRequiredMixin):
+    model = Product
+    permission_required = 'catalog.view_product'
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        if settings.CACHE_ENABLED:
+            key = cache.get(f'version_list{self.object.pk}')
+            version_list = cache.get(key)
+            if version_list is None:
+                version_list = self.object.version_set.all()
+                cache.set(key, version_list)
+        else:
+            version_list = self.object.version_set.all()
+
+        context_data['versions'] = version_list
+        return context_data
+
+
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
@@ -28,7 +50,7 @@ class ProductCreateView(CreateView):
         self.object = form.save()
         self.object.creator = self.request.user
         self.object.save()
-        
+
         return super().form_valid(form)
 
 

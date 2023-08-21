@@ -1,0 +1,37 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="col-12 offset-md-4">
+    <div class="col-12">
+        <div class="container-fluid">
+            <div class="col-12">
+                <div class="card">
+                    {% csrf_token %}
+                    <div class="card-header">
+                        <h3 class="card-title">Detail</h3>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="text-body-secondary fw-light mt-3 mb-4">
+                            {{ object.nomination }}</h1>
+                        <h1 class="text-body-secondary fw-light mt-3 mb-4">
+                            {{ object.description }}</h1>
+                    </div>
+
+                    <div class="card-footer">
+                    </div>
+                    <div class="col-6">
+                        <h3 class="card-title">Product version</h3>
+                        <ul>
+                            {% for version in versions %}
+                            <li>{{ version }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}

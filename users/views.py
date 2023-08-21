@@ -66,3 +66,4 @@ def generate_password(request):
     request.user.save()
 
     return redirect(reverse('users:login'))
+
