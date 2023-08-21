@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from catalog.forms import ProductForm, VersionForm
 from catalog.models import Product, Version
+from catalog.services import cache_version
 
 
 class ProductListView(ListView):
@@ -28,16 +29,7 @@ class ProductDetailView(DetailView, PermissionRequiredMixin):
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        if settings.CACHE_ENABLED:
-            key = cache.get(f'version_list{self.object.pk}')
-            version_list = cache.get(key)
-            if version_list is None:
-                version_list = self.object.version_set.all()
-                cache.set(key, version_list)
-        else:
-            version_list = self.object.version_set.all()
-
-        context_data['versions'] = version_list
+        context_data['versions'] = cache_version(self.object.pk)
         return context_data
 
 
